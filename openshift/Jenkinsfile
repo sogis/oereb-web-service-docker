@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 120, unit: 'SECONDS')
+    }
+    stages {
+        stage('Deploy') {
+            steps {
+                script {
+                    appName = env.JOB_BASE_NAME
+                    environmentName = namespace.substring(namespace.lastIndexOf('-') + 1)
+                }
+                sh "oc process -f openshift/${appName}.yaml --param-file=openshift/${appName}_${environmentName}.params | oc apply -f - -n ${namespace}"
+                sh "oc rollout status dc ${appName} -n ${namespace}"
+            }
+        }
+    }
+    post {
+        always {
+            sh "oc status --suggest -n ${namespace}"
+        }
+    }
+}
