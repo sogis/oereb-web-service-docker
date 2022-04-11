@@ -35,10 +35,6 @@ repositories {
 
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-
-    resolutionStrategy { 
-        force 'io.github.sogis:pdf4oereb:2.0.60'
-    }
 }
 
 dependencies {
