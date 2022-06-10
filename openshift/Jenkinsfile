@@ -4,7 +4,7 @@ def environment = params.NAMESPACE.substring(params.NAMESPACE.lastIndexOf('-') +
 pipeline {
     agent any
     stages {
-        stage('Restart only') {
+        stage('Restart the pods') {
             when { expression { params.RESTART_ONLY } }
             steps {
                 sh "oc rollout latest dc/${appName} -n ${params.NAMESPACE}"
