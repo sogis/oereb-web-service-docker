@@ -32,6 +32,7 @@ pipeline {
     post {
         always {
             sh "oc status --suggest -n ${params.NAMESPACE}"
+            script { currentBuild.description = "${params.NAMESPACE}" }
         }
     }
 }
