@@ -139,20 +139,18 @@ parameters:
 - name: REPLICA_COUNT
   description: "Number of replicas to run"
   value: "1"
-- name: HOSTNAME
-  description: "The hostname for the route"
 - name: CPU_REQUEST
   description: "The minimum amount of CPU the container is guaranteed."
-  value: 250m
+  required: true
 - name: CPU_LIMIT
   description: "The maximum amount of CPU the container is allowed to use when running."
-  value: "1"
+  required: true
 - name: MEMORY_REQUEST
   description: "The minimum amount of memory the container is guaranteed."
-  value: 200Mi
+  required: true
 - name: MEMORY_LIMIT
   description: "The maximum amount of memory the container is allowed to use when running."
-  value: 600Mi
+  required: true
 - name: DBSCHEMA
   description: "The name of the database schema containing the data"
   value: live
