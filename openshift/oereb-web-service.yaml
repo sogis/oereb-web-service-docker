@@ -135,10 +135,10 @@ parameters:
   value: latest
 - name: IMPORT_POLICY_SCHEDULED
   description: "Regularly check for changed image?"
-  value: "false"
+  value: 'false'
 - name: REPLICA_COUNT
   description: "Number of replicas to run"
-  value: "1"
+  value: '1'
 - name: CPU_REQUEST
   description: "The minimum amount of CPU the container is guaranteed."
   required: true
@@ -159,7 +159,7 @@ parameters:
   value: Europe/Zurich
 - name: MININTERSECTION
   description: "Discard intersection areas/lines smaller than MININTERSECTION map units"
-  value: "0.5"
+  value: '0.5'
 - name: LOG_LEVEL_DB_CONNECTION_POOL
   description: "The log level of the DB connection pool"
   value: info
