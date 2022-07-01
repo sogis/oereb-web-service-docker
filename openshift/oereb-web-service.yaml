@@ -125,50 +125,50 @@ objects:
       app: ${APPNAME}
 parameters:
 - name: APPNAME
-  description: "Name of the App"
+  description: Name of the App
   required: true
 - name: IMAGENAME
-  description: "Name of the docker image (e.g. sogis/my-image)"
+  description: Name of the docker image (e.g. sogis/my-image)
   required: true
 - name: TAG
-  description: "The Docker image tag to use (e.g. latest)"
+  description: The Docker image tag to use (e.g. latest)
   value: latest
 - name: IMPORT_POLICY_SCHEDULED
-  description: "Regularly check for changed image?"
+  description: Regularly check for changed image?
   value: 'false'
 - name: REPLICA_COUNT
-  description: "Number of replicas to run"
+  description: Number of replicas to run
   value: '1'
 - name: CPU_REQUEST
-  description: "The minimum amount of CPU the container is guaranteed."
+  description: The minimum amount of CPU the container is guaranteed.
   required: true
 - name: CPU_LIMIT
-  description: "The maximum amount of CPU the container is allowed to use when running."
+  description: The maximum amount of CPU the container is allowed to use when running.
   required: true
 - name: MEMORY_REQUEST
-  description: "The minimum amount of memory the container is guaranteed."
+  description: The minimum amount of memory the container is guaranteed.
   required: true
 - name: MEMORY_LIMIT
-  description: "The maximum amount of memory the container is allowed to use when running."
+  description: The maximum amount of memory the container is allowed to use when running.
   required: true
 - name: DBSCHEMA
-  description: "The name of the database schema containing the data"
+  description: The name of the database schema containing the data
   value: live
 - name: TZ
-  description: "Print times in the specified time zone"
+  description: Print times in the specified time zone
   value: Europe/Zurich
 - name: MININTERSECTION
-  description: "Discard intersection areas/lines smaller than MININTERSECTION map units"
+  description: Discard intersection areas/lines smaller than MININTERSECTION map units
   value: '0.5'
 - name: LOG_LEVEL_DB_CONNECTION_POOL
-  description: "The log level of the DB connection pool"
+  description: The log level of the DB connection pool
   value: info
 - name: LOG_LEVEL_DB_CONNECTION
-  description: "The log level of the JDBC DB connection"
+  description: The log level of the JDBC DB connection
   value: info
 - name: LOG_LEVEL_FRAMEWORK
-  description: "The log level of the Spring framework"
+  description: The log level of the Spring framework
   value: info
 - name: LOG_LEVEL_OEREB
-  description: "The log level of the OEREB library"
+  description: The log level of the OEREB library
   value: info
