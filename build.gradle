@@ -6,13 +6,6 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-// docker run -p 8080:8080 -d sogis/oereb-web-service
-// docker run -p 8080:8080 -e DBURL=jdbc:postgresql://docker.for.win.localhost/ceis -e DBSCHEMA=oereb -e DBUSR=usr -e DBPWD=pwd  sogis/oereb-web-service
-// docker run -it --rm alpine ping 172.17.0.2
-
-//def DOCKER_ACCOUNT = System.getProperty('DOCKER_ACCOUNT','sogis')
-//def DOCKER_REPO = System.getProperty('DOCKER_REPO','oereb-web-service')
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -24,45 +17,18 @@ repositories {
     }
 }
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-
-    resolutionStrategy { 
-        //force 'io.github.sogis:pdf4oereb:2.0.+'
-    }
-}
-
 dependencies {
-    compile group: 'ch.ehi.oereb', name: 'oereb-web-service', version: "2.0.1-SNAPSHOT", changing: true
-}
+    //compile group: 'ch.ehi.oereb', name: 'oereb-web-service', version: "2.0.1-SNAPSHOT", changing: true
+    compile "org.postgresql:postgresql:42.2.6"
+    compile("ch.ehi.oereb:oereb-web-service:2.0.1-SNAPSHOT") {
+        exclude group: 'org.postgresql', module: 'postgresql'
+    }
 
-/*
-jar {
-  manifest {
-    attributes(
-      "Main-Class": "ch.ehi.oereb.webservice.Application",
-      "Class-Path": configurations.runtimeClasspath.collect { 'libs/'+it.getName() }.join(' '))
-  }
 }
-*/
 
 bootJar {
     mainClass = 'ch.ehi.oereb.webservice.Application'
 }
-
-/*
-task jardist(type: Copy) {
-    delete fileTree('build/dist')
-    destinationDir = file('build/dist')
-    from jar
-    dependsOn configurations.runtimeClasspath
-    into('libs'){
-        from {
-            configurations.runtimeClasspath
-        }
-    }    
-}
-*/
 
 // Docker image wird in/mit GH Action Pipeline erstellt (v.a. wegen ARM64)
 /*
