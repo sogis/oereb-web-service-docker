@@ -9,11 +9,12 @@ buildscript {
 
 
 plugins {
-  id "java"
-  //id 'net.nemerosa.versioning' version '2.0.0'
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "java"
 }
 
-apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 // docker run -p 8080:8080 -d sogis/oereb-web-service
 // docker run -p 8080:8080 -e DBURL=jdbc:postgresql://docker.for.win.localhost/ceis -e DBSCHEMA=oereb -e DBUSR=usr -e DBPWD=pwd  sogis/oereb-web-service
@@ -37,12 +38,11 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 
     resolutionStrategy { 
-        force 'io.github.sogis:pdf4oereb:2.0.+'
+        //force 'io.github.sogis:pdf4oereb:2.0.+'
     }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-actuator:2.1.4.RELEASE")
     compile group: 'ch.ehi.oereb', name: 'oereb-web-service', version: "2.0.1-SNAPSHOT", changing: true
 }
 
@@ -57,7 +57,7 @@ jar {
 */
 
 bootJar {
-    mainClassName = 'ch.ehi.oereb.webservice.Application'
+    mainClass = 'ch.ehi.oereb.webservice.Application'
 }
 
 /*
