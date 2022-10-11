@@ -17,18 +17,23 @@ repositories {
     }
 }
 
-dependencies {
-    //compile group: 'ch.ehi.oereb', name: 'oereb-web-service', version: "2.0.1-SNAPSHOT", changing: true
-    compile "org.postgresql:postgresql:42.2.6"
-    compile("ch.ehi.oereb:oereb-web-service:2.0.1-SNAPSHOT") {
-        exclude group: 'org.postgresql', module: 'postgresql'
+configurations {
+    dwnld {
+        transitive = false
     }
-
 }
 
-bootJar {
-    mainClass = 'ch.ehi.oereb.webservice.Application'
+dependencies {
+    dwnld "ch.ehi.oereb:oereb-web-service:2.0.1-SNAPSHOT:boot"
 }
+
+task copyDependencies(type: Copy) {
+    from configurations.dwnld
+    into "$buildDir/dwnld"
+}
+
+// Siehe auch https://github.com/sogis/ilivalidator-web-service/blob/master/build.gradle
+// Wenn alles im build.gradle gemacht werden soll.
 
 // Docker image wird in/mit GH Action Pipeline erstellt (v.a. wegen ARM64)
 /*
