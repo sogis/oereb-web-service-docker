@@ -32,6 +32,9 @@ task copyDependencies(type: Copy) {
     into "$buildDir/dwnld"
 }
 
+
+// TODO layered jar
+
 // Siehe auch https://github.com/sogis/ilivalidator-web-service/blob/master/build.gradle
 // Wenn alles im build.gradle gemacht werden soll.
 
