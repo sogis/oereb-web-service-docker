@@ -10,7 +10,8 @@ WORKDIR /work/
 RUN chown $UID /work \
     && chmod "g+rwX" /work \
     && chown $UID:root /work
-COPY --chown=$UID:root build/dwnld/oereb-web-service-*.jar /work/oereb-web-service-docker.jar
+#COPY --chown=$UID:root build/dwnld/oereb-web-service-*.jar /work/oereb-web-service-docker.jar
+COPY --chown=$UID:root build/libs/oereb-web-service-docker.jar /work/oereb-web-service-docker.jar
 
 USER oereb
 EXPOSE 8080
