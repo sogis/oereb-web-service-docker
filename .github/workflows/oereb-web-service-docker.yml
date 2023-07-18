@@ -36,8 +36,8 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: '11'
-          java-version: 'temurin'
+          distribution: 'temurin'
+          java-version: '11'
           cache: 'gradle'
 
       - name: Build distribution
