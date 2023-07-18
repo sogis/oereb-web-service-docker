@@ -119,7 +119,7 @@ jobs:
           cache: 'gradle'
 
       - name: Build distribution
-        run: ./gradlew clean bootJar 
+        run: ./gradlew -b build-dev.gradle clean bootJar 
 
       - name: Set up QEMU for amd64 and arm64
         uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480  # v1.2.0 (2021-10-22)
