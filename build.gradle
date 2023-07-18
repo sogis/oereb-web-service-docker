@@ -17,43 +17,21 @@ repositories {
     }
 }
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-
-    resolutionStrategy { 
-        force 'io.github.sogis:pdf4oereb:2.0.119'
+configurations {
+    dwnld {
+        transitive = false
     }
 }
 
 dependencies {
-    compile "org.postgresql:postgresql:42.2.6"
-    compile("ch.ehi.oereb:oereb-web-service:2.0.2-SNAPSHOT") {
-        exclude group: 'org.postgresql', module: 'postgresql'
-    }
+    dwnld "ch.ehi.oereb:oereb-web-service:2.0.2-SNAPSHOT:boot"
 }
 
-bootJar {
-    mainClass = 'ch.ehi.oereb.webservice.Application'
+task copyDependencies(type: Copy) {
+    from configurations.dwnld
+    into "$buildDir/dwnld"
 }
 
-// -------
-
-// configurations {
-//     dwnld {
-//         transitive = false
-//     }
-// }
-
-// dependencies {
-//     dwnld "ch.ehi.oereb:oereb-web-service:2.0.2-SNAPSHOT:boot"
-// }
-
-// task copyDependencies(type: Copy) {
-//     from configurations.dwnld
-//     into "$buildDir/dwnld"
-// }
-
-// -------
 
 // TODO layered jar
 
