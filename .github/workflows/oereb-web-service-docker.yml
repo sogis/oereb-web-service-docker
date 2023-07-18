@@ -81,6 +81,9 @@ jobs:
           push: ${{ (github.ref == 'refs/heads/master') && (github.event_name != 'pull_request') && !env.ACT }}
 
   build-graalvm-jdk:
+
+    if: ${{ false }}  # disable for now
+
     env:
       DOCKER_ACCOUNT: sogis
       DOCKER_REPO: oereb-web-service-graalvm-jdk
