@@ -15,7 +15,8 @@ on:
 jobs:
   build:
 
-    if: ${{ github.event.inputs.gradle_environment != 'dev' }}
+    #if: ${{ github.event.inputs.gradle_environment != 'dev' }}
+    if: ${{ (github.event.inputs.gradle_environment != 'dev') && (github.event.inputs.gradle_environment != 'build') }}
 
     env:
       DOCKER_ACCOUNT: sogis
