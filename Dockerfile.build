@@ -1,0 +1,55 @@
+FROM bellsoft/liberica-openjdk-debian:11 as builder
+
+RUN apt-get update
+RUN apt-get install -y git
+
+WORKDIR /work/
+RUN git clone https://github.com/edigonzales/oereb-web-service.git oereb-web-service
+
+WORKDIR /work/oereb-web-service
+RUN git checkout -b superflous-wms-requests origin/superflous-wms-requests
+RUN ./gradlew clean build -x test
+
+
+FROM bellsoft/liberica-openjdk-alpine-musl:11.0.16
+
+RUN apk add --no-cache fontconfig ttf-dejavu && rm -rf /var/cache/apk/*
+
+ARG UID=1001
+RUN adduser -S oereb -u $UID
+
+WORKDIR /work/
+
+RUN chown $UID /work \
+    && chmod "g+rwX" /work \
+    && chown $UID:root /work
+COPY --from=builder --chown=$UID:root /work/oereb-web-service/build/libs/oereb-web-service-*-boot.jar /work/oereb-web-service-docker.jar
+
+USER oereb
+EXPOSE 8080
+#Log4j 2 CVE-2021-44228
+ENV LOG4J_FORMAT_MSG_NO_LOOKUPS=true
+CMD java -XX:MaxRAMPercentage=80.0 -jar oereb-web-service-docker.jar \
+  "--server.tomcat.threads.max=${TOMCAT_THREADS_MAX:-200}" \
+  "--server.tomcat.accept-count=${TOMCAT_ACCEPT_COUNT:-100}" \
+  "--server.tomcat.max-connections=${TOMCAT_MAX_CONNECTIONS:-10000}" \
+  "--management.endpoint.health.probes.enabled=true" \
+  "--management.health.livenessState.enabled=true" \
+  "--management.health.readinessState.enabled=true" \
+  "--spring.datasource.hikari.maximum-pool-size=${HIKARI_MAX_POOL_SIZE:-10}" \
+  "--spring.datasource.url=${DBURL}" \
+  "--spring.datasource.username=${DBUSR}" \
+  "--spring.datasource.password=${DBPWD}" \
+  "--oereb.tmpdir=${TMPDIR}" \
+  "--oereb.dbschema=${DBSCHEMA}" \
+  "--oereb.minIntersection=${MININTERSECTION}" \
+  "--oereb.dpi=${DPI:-200}" \
+  "--oereb.cadastreAuthorityUrl=${CADASTRE_AUTHORITY_URL:-https://agi.so.ch}" \
+  "--oereb.planForLandregister=${PLAN_FOR_LANDREGISTER:-https://geo.so.ch/api/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=ch.so.agi.grundbuchplan_oereb&STYLES=&SRS=EPSG%3A2056&CRS=EPSG%3A2056&TILED=false&DPI=96&OPACITIES=255&t=675&WIDTH=1920&HEIGHT=710&BBOX=2607051.2375,1228517.0374999999,2608067.2375,1228892.7458333333}" \
+  "--oereb.planForLandregisterMainPage=${PLAN_FOR_LANDREGISTER_MAIN_PAGE:-https://geo.so.ch/api/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=ch.so.agi.hintergrundkarte_sw&STYLES=&SRS=EPSG%3A2056&CRS=EPSG%3A2056&TILED=false&DPI=96&OPACITIES=255&t=675&WIDTH=1920&HEIGHT=710&BBOX=2607051.2375,1228517.0374999999,2608067.2375,1228892.7458333333}" \
+  "--oereb.webAppUrl=https://geo.so.ch/map/?oereb_egrid=" \
+  "--spring.datasource.driver-class-name=org.postgresql.Driver" \
+  "--logging.level.com.zaxxer.hikari=${LOG_LEVEL_DB_CONNECTION_POOL:-info}" \
+  "--logging.level.org.springframework.jdbc.core.JdbcTemplate=${LOG_LEVEL_DB_CONNECTION:-info}" \
+  "--logging.level.org.springframework.web=${LOG_LEVEL_FRAMEWORK:-info}" \
+  "--logging.level.ch.ehi.oereb=${LOG_LEVEL_OEREB:-info}" 
