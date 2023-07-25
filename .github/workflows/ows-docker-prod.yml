@@ -1,4 +1,4 @@
-name: oereb-web-service-docker
+name: ows-docker-prod
 
 on:
   workflow_dispatch:
