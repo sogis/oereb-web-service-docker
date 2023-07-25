@@ -77,7 +77,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           context: .
-          file: Dockerfile.alpine
+          file: Dockerfile.alpine-prod
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
           push: ${{ (github.ref == 'refs/heads/master') && (github.event_name != 'pull_request') && !env.ACT }}
