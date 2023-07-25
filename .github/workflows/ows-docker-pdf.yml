@@ -1,4 +1,4 @@
-name: ows-docker-prod
+name: ows-docker-pdf
 
 on:
   workflow_dispatch:
