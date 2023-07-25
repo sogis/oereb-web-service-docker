@@ -36,6 +36,6 @@ Es gibt drei GH Action Workflows:
 
 - `ows-docker-prod`: Verwendet den deployten OEREB-Web-Service (Fatjar) und packt ihn in ein Dockeriamge.
 - `ows-docker-pdf`: Verwendet das deployte Thinjar und überschreibt die pdf4oereb-Dependency-Version mit der im `build-pdf.gradle` angegebenen Version. Aktuell wir einfach `+` verwendet.
-- `ows-docker-branch`: Buildet die Anwendung selber in einem Docker-Builder-Image. Es wird vom `edigonzales`-Repo ausgecheckt. Der Branch muss zwingend angeben werden.
+- `ows-docker-branch`: Buildet die Anwendung selber in einem Docker-Builder-Image. Es wird vom "edigonzales"-Repo ausgecheckt. Der Branch muss zwingend angeben werden.
 
 Der "Prod"-Workflow tagged eine Patch-Version. Die beiden anderen nur maximal bis zur Minor-Version.
