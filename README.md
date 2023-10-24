@@ -7,6 +7,7 @@
 | `DBURL` | JDBC-Connection-String für PostgreSQL-Datenbank. |  |
 | `DBUSR` | Benutzerlogin für Datenbank. |  |
 | `DBPWD` | Passwort für Datenbank. | |
+| `DBSCHEMA` | Schema der Datenbank. | |
 | `TMPDIR` | Verzeichnis zum Speichern von temporären Dateien. |  |
 | `MININTERSECTION` | Länge- und Flächengrösse, die beim Verschneiden von Linien und Flächen ignoriert wird. |  |
 | `TZ` | Timezone: Damit die korrekte Uhrzeit im Auszug verwendet wird. |  |
