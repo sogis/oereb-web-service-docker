@@ -24,7 +24,7 @@ configurations {
 }
 
 dependencies {
-    dwnld "ch.ehi.oereb:oereb-web-service:2.0.2-SNAPSHOT:boot"
+    dwnld "ch.ehi.oereb:oereb-web-service:2.0.2:boot"
 }
 
 task copyDependencies(type: Copy) {
